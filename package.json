@@ -58,10 +58,14 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "lint": "concurrently \"eslint  --ignore-pattern 'public' --ext .js,.jsx ./src\" \"sass-lint\"",
+    "lint": "eslint  --ignore-pattern 'public' --ext .js,.jsx .",
     "lint:sass": "sass-lint -v",
-    "lint:staged": "LIST=`git diff --cached --name-only | grep '^.*\\.jsx*$'`; if [ \"$LIST\" ]; then eslint $LIST; fi",
+    "lint:staged": "LIST=`git diff --cached --name-only | grep '^.*\\.jsx*$'`; if [ \"$LIST\" ]; then eslint $LIST; fi"
   },
+  "precommit": [
+    "lint:sass",
+    "lint:staged"
+  ],
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}"
